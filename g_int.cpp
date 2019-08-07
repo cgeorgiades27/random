@@ -13,27 +13,29 @@ int main(int argc, char* argv[])
         exit(EXIT_FAILURE);
     }
     
+    typedef std::pair<std::string,std::string> Pair;
+    std::list<std::pair<std::string,std::string> > teachers;
+    std::list<std::pair<std::string,std::string> > students;
+    std::list<std::pair<std::string,std::string> > pairs;
     std::ifstream stu, tea;
     stu.open(argv[1]);
-    tea.open(arg[2]);
+    tea.open(argv[2]);
 
-    if (!ifs.is_open())
+    if (!stu.is_open())
     {
         std::cerr << "*** unable to open " << argv[1];
         exit(EXIT_FAILURE);
     }
 
     char line[90];
+    std::string name, subject;
 
-    while (ifs.getline(line,90))
+    while (stu.getline(line,90))
     {
-        sscanf("%s,%s",)
+        sscanf(line,"%s,%s",name,subject);
+        if (students.)
     }
 
-    typedef std::pair<std::string,std::string> Pair;
-    std::list<std::pair<std::string,std::string> > teachers;
-    std::list<std::pair<std::string,std::string> > students;
-    std::list<std::pair<std::string,std::string> > pairs;
     
     Pair a("Dr. J","Math");
     Pair b("Dr. M","English");
