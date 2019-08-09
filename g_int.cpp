@@ -1,3 +1,7 @@
+/*
+    Build: g++ -std=c++11 -o g.x g_int.cpp
+ */
+
 #include <iostream>
 #include <list>
 #include <string>
@@ -5,57 +9,58 @@
 #include <utility>
 #include <fstream>
 
-int main(int argc, char* argv[])
+typedef std::pair<std::string, std::string>    Pair;
+std::list<std::pair<std::string, std::string>> teachers;
+std::list<std::pair<std::string, std::string>> students;
+std::list<std::pair<std::string, std::string>> pairs;
+
+int main(int argc, char *argv[])
 {
+    // begin 
     if (argc < 3)
     {
-        std::cerr << "*** Argument error!\n";
+        std::cerr
+            << "*** Argument error!\n"
+            << "Format = <students_file> <teachers_file>\n";
         exit(EXIT_FAILURE);
     }
-    
-    typedef std::pair<std::string,std::string> Pair;
-    std::list<std::pair<std::string,std::string> > teachers;
-    std::list<std::pair<std::string,std::string> > students;
-    std::list<std::pair<std::string,std::string> > pairs;
+
     std::ifstream stu, tea;
     stu.open(argv[1]);
     tea.open(argv[2]);
 
-    if (!stu.is_open())
+    if (!stu.is_open() || !tea.is_open())
     {
         std::cerr << "*** unable to open " << argv[1];
         exit(EXIT_FAILURE);
     }
 
     char line[90];
-    std::string name, subject;
+    char name[44], subject[44];
 
-    while (stu.getline(line,90))
+    while (stu.getline(line, 90))
     {
-        sscanf(line,"%s,%s",name,subject);
-        if (students.)
+        sscanf(line, "%[^,],%s", name, subject);
+        Pair p(name, subject);
+        students.push_back(p);
     }
 
-    
-    Pair a("Dr. J","Math");
-    Pair b("Dr. M","English");
-    Pair c("Dr. P","Proctology");
-    Pair d("Dr. G","Zoology");
-    Pair e("Jimmy","Math");
-    Pair f("Little Timmy","English");
-    Pair g("Peeniss","Proctology");
-    Pair h("Gary","Zoology");
-    Pair i("John","Math");
+    while (tea.getline(line, 90))
+    {
+        sscanf(line, "%[^,],%s", name, subject);
+        Pair p(name, subject);
+        teachers.push_back(p);
+    }
 
-    teachers.push_back(a);
-    teachers.push_back(b);
-    teachers.push_back(c);
-    teachers.push_back(d);
-    students.push_back(e);
-    students.push_back(f);
-    students.push_back(g);
-    students.push_back(h);
-    students.push_back(i);
+    // print students
+    std::cout << "Students:\n";
+    for (std::list<Pair>::iterator i = students.begin(); i != students.end(); ++i)
+        std::cout << (*i).first << ", " << (*i).second << '\n';
+
+    // print teachers
+    std::cout << "Teachers:\n";
+    for (std::list<Pair>::iterator i = teachers.begin(); i != teachers.end(); ++i)
+        std::cout << (*i).first << ", " << (*i).second << '\n';
 
     for (std::list<Pair>::iterator i = teachers.begin(); i != teachers.end(); ++i)
     {
@@ -69,9 +74,9 @@ int main(int argc, char* argv[])
         }
     }
 
+    // print matches
     for (std::list<Pair>::iterator i = pairs.begin(); i != pairs.end(); ++i)
         std::cout << "match: " << (*i).first << " and " << (*i).second << '\n';
-    
+
     return 0;
 }
-

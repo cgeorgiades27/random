@@ -1,0 +1,7 @@
+Dr. J,Math
+Dr. M,English
+Dr. P,Proctology
+Dr. G,Zoology
+Jimbo,Oncology
+Abelard,Egyptology
+Dr. Gellar,Paleontology
